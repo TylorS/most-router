@@ -1,0 +1,71 @@
+{
+  "name": "most-router",
+  "version": "1.0.0",
+  "description": "Basic router for most.js",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "commit": "git-cz",
+    "changelog": "conventional-changelog --infile CHANGELOG.md --same-file --release-count 0 --preset angular",
+    "lint": "tslint -c tslint.json src/*.ts src/**/*.ts",
+    "test": "npm run lib && npm run lint && testem",
+    "test-ci": "npm run lib && npm run lint && testem ci",
+    "dist": "rimraf dist/ && mkdirp dist && npm run lib && browserify lib/index.js -t babelify -t browserify-shim --standalone mostRouter --exclude most --outfile dist/most-router.js && uglifyjs dist/most-router.js -o dist/most-router.min.js",
+    "postdist": "git add dist/ && git commit -m 'chore(dist): build dist/'",
+    "lib": "rimraf lib/ && mkdirp lib/ && tsc",
+    "prepublish": "npm run lib"
+  },
+  "browserify-shim": {
+    "most": "global:most"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "commit-msg": "node ./node_modules/.bin/validate-commit-msg"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitub.com/TylorS/most-router"
+  },
+  "keywords": [
+    "most.js",
+    "router",
+    "switch-path"
+  ],
+  "author": "Tylor Steinberger <tlsteinberger167@gmail.com> (github.com/TylorS)",
+  "license": "MIT",
+  "peerDependencies": {
+    "most-history": "^1.0.1",
+    "most": "^0.19.7"
+  },
+  "dependencies": {
+    "switch-path": "^1.1.7"
+  },
+  "devDependencies": {
+    "babel-plugin-espower": "^2.2.0",
+    "babel-preset-es2016": "^6.0.11",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "browserify-shim": "^3.8.12",
+    "commitizen": "^2.8.1",
+    "conventional-changelog": "^1.1.0",
+    "conventional-changelog-cli": "^1.2.0",
+    "cz-conventional-changelog": "^1.1.6",
+    "ghooks": "^1.2.1",
+    "mkdirp": "^0.5.1",
+    "mocha": "^2.5.3",
+    "power-assert": "^1.4.1",
+    "rimraf": "^2.5.2",
+    "testem": "^1.8.0",
+    "tslint": "^3.10.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
+    "uglify-js": "^2.6.2",
+    "validate-commit-msg": "^2.6.1"
+  }
+}

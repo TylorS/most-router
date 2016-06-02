@@ -1,0 +1,7 @@
+{
+  "name": "most-router",
+  "version": false,
+  "dependencies": {
+    "history": "registry:npm/history#2.0.0+20160406171533"
+   }
+}
